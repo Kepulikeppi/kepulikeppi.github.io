@@ -4,7 +4,6 @@ const newGameButton = document.querySelector(".new-game");
 const scoreDisplay = document.querySelector(".score");
 const xScoreDisplay = document.querySelector(".x-score");
 const oScoreDisplay = document.querySelector(".o-score");
-const aiSelect = document.querySelector("#ai-select");
 
 const moveXSound = new Audio("sounds/moveX.mp3");
 const moveOSound = new Audio("sounds/moveO.mp3");
@@ -22,8 +21,6 @@ newgameSound.load();
 let playerTurn = true;
 let gameOver = false;
 let board = ["", "", "", "", "", "", "", "", ""];
-let xScore = 0;
-let oScore = 0;
 
 const winningConditions = [
   [0, 1, 2],
@@ -51,14 +48,11 @@ function handleClick(square, index) {
       message.textContent = "You win!";
       winSound.currentTime = 0;
       winSound.play();
-      xScore++;
     } else {
       message.textContent = "You lose!";
       loseSound.currentTime = 0;
       loseSound.play();
-      oScore++;
     }
-    showScore();
     return;
   }
 
@@ -67,7 +61,6 @@ function handleClick(square, index) {
     message.textContent = "Draw!";
     drawSound.currentTime = 0;
     drawSound.play();
-    showScore();
     return;
   }
 
