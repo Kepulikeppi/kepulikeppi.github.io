@@ -95,6 +95,9 @@ function checkDraw() {
   return !board.includes("");
 }
 
+
+
+
 function computerMove() {
   setTimeout(() => {
     let randomIndex = Math.floor(Math.random() * 9);
@@ -103,7 +106,7 @@ function computerMove() {
     }
     const square = squares[randomIndex];
     handleClick(square, randomIndex);
-  }, 500);
+  }, 700);
 }
 
 function resetGame() {
