@@ -4,8 +4,8 @@ const newGameButton = document.querySelector(".new-game");
 
 // Load and cache sound fileSize
 
-const moveXSound = new Audio("sounds/moveX.mp3");
-const moveOSound = new Audio("sounds/moveO.mp3");
+const moveXSound = new Audio("sounds/X.mp3");
+const moveOSound = new Audio("sounds/O.mp3");
 const loseSound = new Audio("sounds/lose.mp3");
 const drawSound = new Audio("sounds/draw.mp3");
 const winSound = new Audio("sounds/youwin.mp3");

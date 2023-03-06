@@ -1,12 +1,9 @@
 const squares = document.querySelectorAll(".square");
 const message = document.querySelector(".message");
 const newGameButton = document.querySelector(".new-game");
-const scoreDisplay = document.querySelector(".score");
-const xScoreDisplay = document.querySelector(".x-score");
-const oScoreDisplay = document.querySelector(".o-score");
 
-const moveXSound = new Audio("sounds/moveX.mp3");
-const moveOSound = new Audio("sounds/moveO.mp3");
+const moveXSound = new Audio("sounds/X.mp3");
+const moveOSound = new Audio("sounds/O.mp3");
 const loseSound = new Audio("sounds/lose.mp3");
 const drawSound = new Audio("sounds/draw.mp3");
 const winSound = new Audio("sounds/youwin.mp3");
@@ -66,12 +63,13 @@ function handleClick(square, index) {
 
   playerTurn = !playerTurn;
   message.textContent = `It's ${playerTurn ? "your" : "computer's"} turn`;
+
   if (!playerTurn) {
-	setTimeout(() => {
-		computerMovePerfect();
-	}, 700);
-    moveOSound.currentTime = 0;
-    moveOSound.play();
+	  if (board[4] === ""){
+		  computerMiddleMove();
+	  } else {
+		  computerMovePerfect();
+	  }
   } else {
     moveXSound.currentTime = 0;
     moveXSound.play();
@@ -96,98 +94,137 @@ function checkDraw() {
   return !board.includes("");
 }
 
+function computerMiddleMove(){
+	setTimeout(() => {
+		const square = squares[4];
+		board[4] = "O";
+		square.classList.add("o-mark");
+		if (checkWin()) {
+			gameOver = true;
+			message.textContent = "You lose!";
+			loseSound.currentTime = 0;
+			loseSound.play();
+		  } else if (checkDraw()) {
+			gameOver = true;
+			message.textContent = "Draw!";
+			drawSound.currentTime = 0;
+			drawSound.play();
+		  } else {
+			playerTurn = true;
+			message.textContent = `It's your turn`;
+			moveOSound.currentTime = 0;
+			moveOSound.play();
+		  }
+		  
+	}, 500);
+	moveXSound.currentTime = 0;
+	moveXSound.play();
+}
+
 function computerMovePerfect() {
-  for (let i = 0; i < winningConditions.length; i++) {
-    const [a, b, c] = winningConditions[i];
-    const line = [board[a], board[b], board[c]];
-    const computerCount = line.filter((mark) => mark === "O").length;
-    const emptyCount = line.filter((mark) => mark === "").length;
+	setTimeout(() => {
+		
+	
+	  for (let i = 0; i < winningConditions.length; i++) {
+		const [a, b, c] = winningConditions[i];
+		const line = [board[a], board[b], board[c]];
+		const computerCount = line.filter((mark) => mark === "O").length;
+		const emptyCount = line.filter((mark) => mark === "").length;
 
-    if (computerCount === 2 && emptyCount === 1) {
-      const emptyIndex = line.indexOf("");
-      const index = [a, b, c][emptyIndex];
-      const square = squares[index];
-      board[index] = "O";
-      square.classList.add("o-mark");
+		if (computerCount === 2 && emptyCount === 1) {
+		  const emptyIndex = line.indexOf("");
+		  const index = [a, b, c][emptyIndex];
+		  const square = squares[index];
+		  board[index] = "O";
+		  square.classList.add("o-mark");
 
-      if (checkWin()) {
-        gameOver = true;
-        message.textContent = "You lose!";
-        loseSound.currentTime = 0;
-        loseSound.play();
-      } else if (checkDraw()) {
-        gameOver = true;
-        message.textContent = "Draw!";
-        drawSound.currentTime = 0;
-        drawSound.play();
-      } else {
-        playerTurn = true;
-        message.textContent = `It's your turn`;
-      }
+		  if (checkWin()) {
+			gameOver = true;
+			message.textContent = "You lose!";
+			loseSound.currentTime = 0;
+			loseSound.play();
+		  } else if (checkDraw()) {
+			gameOver = true;
+			message.textContent = "Draw!";
+			drawSound.currentTime = 0;
+			drawSound.play();
+		  } else {
+			playerTurn = true;
+			message.textContent = `It's your turn`;
+			moveOSound.currentTime = 0;
+			moveOSound.play();
+		  }
 
-      return;
-    }
+		  return;
+		}
+	  }
+
+	  for (let i = 0; i < winningConditions.length; i++) {
+		const [a, b, c] = winningConditions[i];
+		const line = [board[a], board[b], board[c]];
+		const playerCount = line.filter((mark) => mark === "X").length;
+		const emptyCount = line.filter((mark) => mark === "").length;
+
+		if (playerCount === 2 && emptyCount === 1) {
+		  const emptyIndex = line.indexOf("");
+		  const index = [a, b, c][emptyIndex];
+		  const square = squares[index];
+		  board[index] = "O";
+		  square.classList.add("o-mark");
+
+		  if (checkWin()) {
+			gameOver = true;
+			message.textContent = "You lose!";
+			loseSound.currentTime = 0;
+			loseSound.play();
+		  } else if (checkDraw()) {
+			gameOver = true;
+			message.textContent = "Draw!";
+			drawSound.currentTime = 0;
+			drawSound.play();
+		  } else {
+			playerTurn = true;
+			message.textContent = `It's your turn`;
+			moveOSound.currentTime = 0;
+			moveOSound.play();
+		  }
+
+		  return;
+		}
   }
 
-  for (let i = 0; i < winningConditions.length; i++) {
-    const [a, b, c] = winningConditions[i];
-    const line = [board[a], board[b], board[c]];
-    const playerCount = line.filter((mark) => mark === "X").length;
-    const emptyCount = line.filter((mark) => mark === "").length;
+		const emptySquares = [];
 
-    if (playerCount === 2 && emptyCount === 1) {
-      const emptyIndex = line.indexOf("");
-      const index = [a, b, c][emptyIndex];
-      const square = squares[index];
-      board[index] = "O";
-      square.classList.add("o-mark");
+	  for (let i = 0; i < 9; i++) {
+		if (board[i] === "") {
+		  emptySquares.push(i);
+		}
+	  }
 
-      if (checkWin()) {
-        gameOver = true;
-        message.textContent = "You lose!";
-        loseSound.currentTime = 0;
-        loseSound.play();
-      } else if (checkDraw()) {
-        gameOver = true;
-        message.textContent = "Draw!";
-        drawSound.currentTime = 0;
-        drawSound.play();
-      } else {
-        playerTurn = true;
-        message.textContent = `It's your turn`;
-      }
+	  const randomIndex = emptySquares[Math.floor(Math.random() * emptySquares.length)];
+	  const square = squares[randomIndex];
+	  board[randomIndex] = "O";
+	  square.classList.add("o-mark");
 
-      return;
-    }
-  }
-
-  const emptySquares = [];
-
-  for (let i = 0; i < 9; i++) {
-    if (board[i] === "") {
-      emptySquares.push(i);
-    }
-  }
-
-  const randomIndex = emptySquares[Math.floor(Math.random() * emptySquares.length)];
-  const square = squares[randomIndex];
-  board[randomIndex] = "O";
-  square.classList.add("o-mark");
-
-  if (checkWin()) {
-    gameOver = true;
-    message.textContent = "You lose!";
-    loseSound.currentTime = 0;
-    loseSound.play();
-  } else if (checkDraw()) {
-    gameOver = true;
-    message.textContent = "Draw!";
-    drawSound.currentTime = 0;
-    drawSound.play();
-  } else {
-    playerTurn = true;
-    message.textContent = `It's your turn`;
-  }
+	  if (checkWin()) {
+		gameOver = true;
+		message.textContent = "You lose!";
+		loseSound.currentTime = 0;
+		loseSound.play();
+	  } else if (checkDraw()) {
+		gameOver = true;
+		message.textContent = "Draw!";
+		drawSound.currentTime = 0;
+		drawSound.play();
+	  } else {		
+		playerTurn = true;
+		message.textContent = `It's your turn`;
+		moveOSound.currentTime = 0;
+		moveOSound.play();
+	  }
+	}, 500);
+  moveXSound.currentTime = 0;
+  moveXSound.play();
 }
 
 function resetGame() {
