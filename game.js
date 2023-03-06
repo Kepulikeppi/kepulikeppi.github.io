@@ -100,12 +100,7 @@ function checkDraw() {
 
 function computerMove() {
   setTimeout(() => {
-    let randomIndex = Math.floor(Math.random() * 9);
-    while (board[randomIndex] !== "") {
-      randomIndex = Math.floor(Math.random() * 9);
-    }
-    const square = squares[randomIndex];
-    handleClick(square, randomIndex);
+
   }, 700);
 }
 

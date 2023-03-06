@@ -74,7 +74,9 @@ function handleClick(square, index) {
   playerTurn = !playerTurn;
   message.textContent = `It's ${playerTurn ? "your" : "computer's"} turn`;
   if (!playerTurn) {
-    computerMovePerfect();
+	setTimeout(() => {
+		computerMovePerfect();
+	}, 700);
     moveOSound.currentTime = 0;
     moveOSound.play();
   } else {
