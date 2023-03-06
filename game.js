@@ -8,7 +8,7 @@ const moveXSound = new Audio("sounds/moveX.mp3");
 const moveOSound = new Audio("sounds/moveO.mp3");
 const loseSound = new Audio("sounds/lose.mp3");
 const drawSound = new Audio("sounds/draw.mp3");
-const winSound = new Audio("sounds/win.mp3");
+const winSound = new Audio("sounds/youwin.mp3");
 const newgameSound = new Audio("/sounds/new_game.mp3");
 moveXSound.load();
 moveOSound.load();
@@ -44,8 +44,20 @@ function handleClick(square, index) {
 
   if (checkWin()) {
     gameOver = true;
-    message.textContent = `${mark === "X" ? "You win!" : "You lose!"}`;
-    return;
+	if (mark === "X"){
+		message.textContent = "You win!";
+		winSound.currentTime = 0;
+		winSound.play();
+		return;
+	}
+	else {
+		message.textContent = "You lose!";
+		loseSound.currentTime = 0;
+		loseSound.play();
+		return;
+	}
+    
+   
   }
 
   if (checkDraw()) {
