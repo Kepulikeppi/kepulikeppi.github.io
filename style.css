@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Neon');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Neon');
+
+body {
+  background-color: black;
+}
+
+.game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.board {
+  width: 300px;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0px;
+}
+
+.square {
+  background-color: #333333; /* darker grey */
+  border: 2px solid black;
+  font-size: 50px;
+  font-family: 'Press Start 2P', cursive; /* blocky and unusual font */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.square:hover {
+  background-color: #666666; /* lighter grey */
+}
+
+.square.x-mark::before {
+  content: "X";
+  font-size: 50px;
+  font-family: 'Neon', sans-serif; /* neon font */
+  color: #00bfff; /* blue */
+  text-shadow: 0 0 5px #00bfff; /* neon glow effect */
+}
+
+.square.o-mark::before {
+  content: "O";
+  font-size: 50px;
+  font-family: 'Neon', sans-serif; /* neon font */
+  color: #ff3333; /* red */
+  text-shadow: 0 0 5px #ff3333; /* neon glow effect */
+}
+
+.message {
+  margin-top: 20px;
+  font-size: 24px;
+  font-family: 'Orbitron', sans-serif; /* futuristic or sci-fi font */
+  color: white;
+}
+
+.new-game {
+  margin-top: 20px;
+  font-size: 16px;
+  font-family: 'Orbitron', sans-serif; /* futuristic or sci-fi font */
+  background-color: grey;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.new-game:hover {
+  background-color: lightgray;
+  color: black;
+}
