@@ -77,3 +77,12 @@ body {
   background-color: lightgray;
   color: black;
 }
+
+.winning-square {
+  background-color: #008000; /* green */
+  transition: background-color 1s ease-in-out; /* transition property */
+}
+
+.winning-square.animate {
+  background-color: #333333; /* grey */
+}

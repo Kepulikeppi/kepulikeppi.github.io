@@ -77,6 +77,7 @@ function handleClick(square, index) {
 }
 
 function checkWin() {
+  
   for (let i = 0; i < winningConditions.length; i++) {
     const [a, b, c] = winningConditions[i];
     if (
@@ -84,6 +85,18 @@ function checkWin() {
       board[a] === board[b] &&
       board[a] === board[c]
     ) {
+      // Add the 'winning-square' class to the squares that form the winning row
+      squares[a].classList.add('winning-square');
+      squares[b].classList.add('winning-square');
+      squares[c].classList.add('winning-square');
+      
+      // Add the 'animate' class to the winning squares after 2 seconds
+      setTimeout(() => {
+        squares[a].classList.add('animate');
+        squares[b].classList.add('animate');
+        squares[c].classList.add('animate');
+      }, 1000);
+      
       return true;
     }
   }
@@ -228,12 +241,12 @@ function computerMovePerfect() {
 }
 
 function resetGame() {
-  playerTurn = true;
+   playerTurn = true;
   gameOver = false;
   board = ["", "", "", "", "", "", "", "", ""];
   squares.forEach((square) => {
     square.textContent = "";
-    square.classList.remove("x-mark", "o-mark");
+    square.classList.remove("x-mark", "o-mark", "winning-square", "animate"); // remove winning classes
   });
   message.textContent = `It's your turn`;
 }
