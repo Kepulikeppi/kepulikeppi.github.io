@@ -9,7 +9,7 @@ const moveOSound = new Audio("sounds/moveO.mp3");
 const loseSound = new Audio("sounds/lose.mp3");
 const drawSound = new Audio("sounds/draw.mp3");
 const winSound = new Audio("sounds/youwin.mp3");
-const newgameSound = new Audio("sounds/new.mp3");
+const newgameSound = new Audio("sounds/new_game.mp3");
 moveXSound.load();
 moveOSound.load();
 loseSound.load();
